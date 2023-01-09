@@ -1,0 +1,35 @@
+{% extends 'crypto_functions/base.html' %}
+
+{% block title %}Cryptography{% endblock title %}
+
+{% block body %}
+<form action="{% url 'cryptography' %}" method = "POST">
+    {% csrf_token %}
+    <fieldset>
+        <textarea name="input" id="" cols="30" rows="10" placeholder="Enter input string" required></textarea>
+    </fieldset>
+
+    <fieldset>
+        <input type="text" name="shift" placeholder="Enter shift/key">
+    </fieldset>
+
+    <fieldset>
+        <select name="function" id="">
+            <option value="opt1">Morse Code</option>
+            <option value="opt2">Morse to Text</option>
+            <option value="opt3">camelCase to snake_case</option>
+            <option value="opt5">Caesar Cipher</option>
+            <option value="opt6">Vigenere Cipher</option>
+            <option value="opt7">Base64 Encoding</option>
+            <option value="opt8">Base64 Decoding</option>
+        </select>
+    </fieldset>
+
+    <button type = "submit" name ="submit">Submit</button>
+</form>
+
+<fieldset>
+    <h2>Output:</h2>
+    {{ output }}
+</fieldset>
+{% endblock body %}
