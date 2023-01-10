@@ -117,16 +117,20 @@ def morse_to_text(input):
 def inverseCase(input):
     return input.swapcase()
 
-def vigenere_cipher(input,key):
-    #keygen
+def keygen(input,key):
     key = list(key) 
     if len(input) == len(key): 
         fin_key = key 
     else: 
         for i in range(len(input) -len(key)): 
             key.append(key[i % len(key)]) 
-    fin_key = ("" . join(key))
+    return ("" . join(key))
 
+def vigenere_cipher(input,key):
+    #keygen
+    fin_key = keygen(input,key)
+    input = input.upper()
+    fin_key = fin_key.upper()
     #encryption
     encrypt_text = [] 
     for i in range(len(input)): 
@@ -135,4 +139,32 @@ def vigenere_cipher(input,key):
         encrypt_text.append(chr(x)) 
     return ("" . join(encrypt_text))
 
-print(inverseCase('vathsalTAMMEWAR'))
+def caesar_decipher(input, key):
+    input = input.upper()
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    result = ""
+
+    for letter in input:
+        if letter in alpha:
+            letter_index = (alpha.find(letter) - key) % len(alpha)
+
+            result = result + alpha[letter_index]
+        else:
+            result = result + letter
+    return result
+
+def vigenere_decipher(input, key): 
+    input = input.upper()
+    fin_key = keygen(input,key)
+    fin_key = fin_key.upper()
+
+    orig_text = [] 
+    for i in range(len(input)): 
+        x = (ord(input[i]) -ord(fin_key[i]) + 26) % 26
+        x += ord('A') 
+        orig_text.append(chr(x)) 
+    return("" . join(orig_text)) 
+
+def snake_to_camel(input):
+    first, *others = input.split('_')
+    return ''.join([first.lower(), *map(str.title, others)])
